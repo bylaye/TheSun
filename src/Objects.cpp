@@ -4,14 +4,14 @@ Objects::Objects(std::string name, double mass, double radius, double distanceSu
     :name(name), mass(mass), radius(radius), distanceSun(distanceSun){};
 
 
-void Objects::setVelocity(double v)
+void Objects::setVelocity(double G, double M, double d)
 {
-    velocity = v;
+    velocity = std::sqrt((G*M)/d);
 }
 
 
-void Objects::setAcceleration(double a)
+void Objects::setAcceleration(double d)
 {
-    acceleration = a;
+    acceleration = std::pow(velocity, 2) / d;
 }
 

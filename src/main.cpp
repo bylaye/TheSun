@@ -21,13 +21,18 @@ namespace star
     const Planet Neptune = {1.0241e26, 2.4622e7, 4.503e12};    
 
     const Planet Sun = {1.989e30, 6.9634e8, 0.0}; 
+    const double G = 6.674e-11;
 }
 
 
 int main(){
-    Objects earth("Earth", star::Earth.mass, 12.f, 1234.f, 1200.f, 100.f);
-    earth.setAcceleration(1021.f);
+    Objects earth("Earth", star::Earth.mass, star::Earth.radius, star::Earth.distanceSun);
+    earth.setVelocity(star::G, star::Sun.mass, earth.getDistanceSun());
+    earth.setAcceleration(star::Earth.distanceSun);
+    earth.setPositionX(111);
+    earth.setPositionY(222);
     std::cout << earth.getPositionX() << earth.getName()<< std::endl;
+//    std::cout << earth.getVelocity() << std::endl;
     std::cout << earth.getAcceleration() << std::endl;
     return 0;
 }
