@@ -20,6 +20,7 @@ namespace star
     const Planet Uranus  = {8.6810e25, 2.5362e7, 2.877e12};
     const Planet Neptune = {1.0241e26, 2.4622e7, 4.503e12};    
 
+    const Planet Sun = {1.989e30, 6.9634e8, 0.0}; 
 }
 
 
