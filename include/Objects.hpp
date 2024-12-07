@@ -2,6 +2,8 @@
 #define OBJECTS_HPP
 
 #include <string>
+#include <cmath>
+#include <iostream>
 
 class Objects
 {
@@ -22,8 +24,8 @@ class Objects
         void setPositionX(double x) { positionX = x; };
         void setPositionY(double y) { positionY = y;  };
         void setMass(double m) { mass = m; };
-        void setVelocity(double v);
-        void setAcceleration(double a);
+        void setVelocity(double G, double M, double d);
+        void setAcceleration(double d);
 
         std::string getName()    const { return name; };
         double getMass()         const { return mass; };
@@ -33,7 +35,8 @@ class Objects
         double getPositionY()    const { return positionY; };
         double getVelocity()     const { return velocity; };
         double getAcceleration() const { return acceleration; };
-    
+        
+        double F() {return acceleration * mass; } ;    
 };
 
 #endif
