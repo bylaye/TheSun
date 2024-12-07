@@ -1,0 +1,3 @@
+/home/aniang/TheSun/build/CMakeFiles/TheSun.dir
+/home/aniang/TheSun/build/CMakeFiles/edit_cache.dir
+/home/aniang/TheSun/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/TheSun.dir/src/main.cpp.o CMakeFiles/TheSun.dir/src/Objects.cpp.o -o TheSun 
