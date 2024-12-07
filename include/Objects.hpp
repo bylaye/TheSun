@@ -15,7 +15,7 @@ class Objects
         float acceleration;
 
     public:
-        Objects(std::string name, float positionX, float positionY, float velocity, float mass, float radius, float accelaration);
+        Objects(std::string name, float positionX, float positionY, float velocity, float mass, float radius);
 
         void setPositionX(float x);
         void setPositionY(float y);

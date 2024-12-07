@@ -1,7 +1,7 @@
 #include <Objects.hpp>
 
-Objects::Objects(std::string name, float positionX, float positionY, float velocity, float mass, float radius, float accelaration)
-    :name(name), positionX(positionX), positionY(positionY), velocity(velocity), mass(mass), radius(radius), acceleration(acceleration){};
+Objects::Objects(std::string name, float positionX, float positionY, float velocity, float mass, float radius)
+    :name(name), positionX(positionX), positionY(positionY), velocity(velocity), mass(mass), radius(radius) {};
 
 
 std::string Objects::getName() const
