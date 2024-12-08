@@ -16,6 +16,9 @@ class Objects
         double radius;
         double acceleration;
         double distanceSun;
+        double angleOrbit;
+        double timeStep;
+        float revolution;
 
     public:
         Objects(std::string name, double mass, double radius, double distanceSun);
@@ -24,6 +27,9 @@ class Objects
         void setPositionX(double x) { positionX = x; };
         void setPositionY(double y) { positionY = y;  };
         void setMass(double m) { mass = m; };
+        void setAngleOrbit(double t) { angleOrbit = t; };
+        void setRevolution(float i) { revolution += i; };
+        void setTimeStep(double st) { timeStep = st; };
         void setVelocity(double G, double M, double d);
         void setAcceleration(double d);
 
@@ -35,8 +41,14 @@ class Objects
         double getPositionY()    const { return positionY; };
         double getVelocity()     const { return velocity; };
         double getAcceleration() const { return acceleration; };
+        double getAngleOrbit()   const { return angleOrbit; };
+        double getTimeStep()     const { return timeStep; };
+        float  getRevolution()   const { return revolution; };
         
-        double F() {return acceleration * mass; } ;    
+        double F() {return acceleration * mass; } ;
+        void initRevolution() { revolution = 0; };
+
+        void updatePlanetOrbit();
 };
 
 #endif

@@ -29,8 +29,6 @@ namespace star
         {"Neptune", 1.0241e26, 2.4622e7, 4.503e12}, // Planet 8
     };
 
-//    const Planet Sun = {1.989e30, 6.9634e8, 0.0}; 
-
 }
 
 
@@ -39,23 +37,22 @@ int main(){
     const float mapHeight = 680.0f;
     const float scale = 10.0f;
     sf::RenderWindow window(sf::VideoMode(mapWidth, mapHeight), "Star Map Simulation");
-    
+
+    std::vector<Objects> Planets;
     const star::Planet& Sun = star::Planets[0];
-    const star::Planet& Earth = star::Planets[3];
-    Objects earth(Earth.name, Earth.mass, Earth.radius, Earth.distanceSun);
+    float TIME_STEP = 3600*24;
+ 
+    for (const star::Planet& p : star::Planets)
+    {
+        Objects planet(p.name, p.mass, p.radius, p.distanceSun);
+        planet.setVelocity(star::G, Sun.mass, planet.getDistanceSun());
+        planet.setAcceleration(p.distanceSun);
+        planet.setPositionX(planet.getDistanceSun());
+        planet.setPositionY(0);
+        planet.setTimeStep(TIME_STEP);
+        Planets.push_back(planet);
+    }
 
-    earth.setVelocity(star::G, Sun.mass, earth.getDistanceSun());
-    earth.setAcceleration(Earth.distanceSun);
-    earth.setPositionX(earth.getDistanceSun());
-    earth.setPositionY(0);
-
-    std::cout << "X: "<< earth.getPositionX() << " Y: " << earth.getPositionY() << std::endl;
-    std::cout << "Velocity : "<< earth.getVelocity() << std::endl;
-    std::cout << " " << earth.getAcceleration() << std::endl;
-    std::cout << " Force Gravitational : " << earth.F() << std::endl;
-    
-    std::cout << Earth.name << " Mass : " << Earth.mass << std::endl;
-    
     /*       
     while (window.isOpen()) {
         sf::Event event;
@@ -67,27 +64,19 @@ int main(){
         window.display();
     }
     */
-
-    float angle = 0, timeStep = 3600*24;
-    for (int i=0; i< 300; i++ )
+    for (int i=0; i< 300; i++)
     {
-        angle += (earth.getVelocity() * timeStep) / earth.getDistanceSun();
-        if (angle >= 2 * M_PI)
+        std::cout << i << " "; 
+        for (size_t p=1 ; p < Planets.size(); p++)
         {
-            angle -= 2* M_PI;
+            auto& planet = Planets[p];
+            planet.updatePlanetOrbit(); 
+            std::cout << planet.getName()<< " : " << planet.getRevolution()<< " ";
         }
-        double x = earth.getDistanceSun() * std::cos(angle);
-        double y = earth.getDistanceSun() * std::sin(angle);
-
-        earth.setPositionX(x);
-        earth.setPositionY(y);
-
-        std::cout << i << " : x = " << earth.getPositionX() << " y = " << earth.getPositionY() << std::endl;
+        std::cout << std::endl;
     }
-    
+
     return 0;
-    
 
 }
-
 
