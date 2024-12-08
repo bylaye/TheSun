@@ -66,7 +66,7 @@ int main(){
     }
 	
     sf::Font font;
-    if (!font.loadFromFile("/home/aniang/TheSun/src/arial.ttf")) {
+    if (!font.loadFromFile("assets/arial.ttf")) {
         return -1; 
     }
 
