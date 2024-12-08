@@ -4,6 +4,8 @@
 #include <SystemMap.hpp>
 #include <vector>
 #include <cmath>
+#include <sstream>
+#include <unistd.h>
 
 namespace star 
 {    
@@ -62,37 +64,69 @@ int main(){
         planet.setTimeStep(TIME_STEP);
         Planets.push_back(planet);
     }
+	
+    sf::Font font;
+    if (!font.loadFromFile("/home/aniang/TheSun/src/arial.ttf")) {
+        return -1; 
+    }
 
-           
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-        }
-        window.clear();
+    sf::Text infoText;
+    infoText.setFont(font);
+    infoText.setCharacterSize(16);
+    infoText.setFillColor(sf::Color::White);
+    //infoText.setPosition(10, 10);
+    infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
-        window.setView(simulationView);
-        window.draw(simulationBackground);
+    // std::ostringstream output;
+    sf::Event event;
 
-        infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
+	while (window.isOpen()) {
+		while (window.pollEvent(event)) {
+		    if (event.type == sf::Event::Closed) {
+		        window.close();
+		    }
+		    if (event.type == sf::Event::KeyPressed) {
+		        if (event.key.code == sf::Keyboard::Up) {
+		            TIME_STEP += 3600;
+		        } else if (event.key.code == sf::Keyboard::Down) {
+		            TIME_STEP = std::max(3600.0f, TIME_STEP - 3600);
+		        }
+		    }
+		}
+		
+		
+
+		// Mettre à jour les informations des planètes
+		std::ostringstream output;
+		output << "Time Step: " << TIME_STEP << "\n";
+		output << "Revolution: " << "\n";
+
+		for (size_t p = 1; p < Planets.size(); p++) {
+		    auto& planet = Planets[p];
+		    planet.setTimeStep(TIME_STEP);
+		    planet.updatePlanetOrbit();
+		    output << planet.getName() << " : " << planet.getRevolution() << "\n";
+		}
+		infoText.setString(output.str());
+		usleep(50000);
+
+		window.clear();
+
+		window.setView(simulationView);
+		window.draw(simulationBackground);
+	
+		infoText.setFillColor(sf::Color::Black);
+		infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
         window.setView(infoView);
         window.draw(infoBackground);
-        window.display();
-    }
+        window.draw(infoText);
+
+		window.display();
+
+	}    
+
     
-    for (int i=0; i< 300; i++)
-    {
-        std::cout << i << " "; 
-        for (size_t p=1 ; p < Planets.size(); p++)
-        {
-            auto& planet = Planets[p];
-            planet.updatePlanetOrbit(); 
-            std::cout << planet.getName()<< " : " << planet.getRevolution()<< " ";
-        }
-        std::cout << std::endl;
-    }
+   
 
     return 0;
 

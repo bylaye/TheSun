@@ -9,3 +9,5 @@ include_directories(include)
 add_executable(TheSun ${SOURCES})
 
 target_link_libraries(TheSun sfml-graphics sfml-window sfml-system)
+
+configure_file(assets/arial.ttf COPYONLY)
