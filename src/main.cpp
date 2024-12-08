@@ -36,7 +36,17 @@ int main(){
     const float mapWidth = 1200.0f;
     const float mapHeight = 680.0f;
     const float scale = 10.0f;
+    
     sf::RenderWindow window(sf::VideoMode(mapWidth, mapHeight), "Star Map Simulation");
+    sf::View simulationView(sf::FloatRect(0, 0, mapWidth * 0.7f, mapHeight));
+    sf::View infoView(sf::FloatRect(mapWidth * 0.7f, 0, mapWidth * 0.3f, mapHeight));
+    
+    sf::RectangleShape simulationBackground(sf::Vector2f(mapWidth * 0.7f, mapHeight));
+    simulationBackground.setFillColor(sf::Color(30, 30, 60));
+    
+    sf::RectangleShape infoBackground(sf::Vector2f(mapWidth * 0.3f, mapHeight));
+    infoBackground.setFillColor(sf::Color::Green);
+    infoBackground.setPosition(mapWidth * 0.7f, 0);
 
     std::vector<Objects> Planets;
     const star::Planet& Sun = star::Planets[0];
@@ -53,7 +63,7 @@ int main(){
         Planets.push_back(planet);
     }
 
-    /*       
+           
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -61,9 +71,17 @@ int main(){
                 window.close();
             }
         }
+        window.clear();
+
+        window.setView(simulationView);
+        window.draw(simulationBackground);
+
+        infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
+        window.setView(infoView);
+        window.draw(infoBackground);
         window.display();
     }
-    */
+    
     for (int i=0; i< 300; i++)
     {
         std::cout << i << " "; 
