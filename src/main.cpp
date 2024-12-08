@@ -36,7 +36,7 @@ namespace star
 
 int main(){
     const float mapWidth = 1200.0f;
-    const float mapHeight = 680.0f;
+    const float mapHeight = 800.0f;
     const float scale = 10.0f;
     
     sf::RenderWindow window(sf::VideoMode(mapWidth, mapHeight), "Star Map Simulation");
@@ -72,14 +72,19 @@ int main(){
 
     sf::Text infoText;
     infoText.setFont(font);
-    infoText.setCharacterSize(16);
-    infoText.setFillColor(sf::Color::White);
-    //infoText.setPosition(10, 10);
+    infoText.setCharacterSize(18);
+    infoText.setFillColor(sf::Color::Blue);
     infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
-    // std::ostringstream output;
+	sf::CircleShape sun;
+	sun.setRadius(50);
+	sun.setScale(1.0f, 1.0f);
+	sun.setOrigin(50, 50);
+	sun.setPosition(50, mapHeight/2);
+	//sun.setPosition(200, mapHeight/2);
+	sun.setFillColor(sf::Color::Red);
+	
     sf::Event event;
-
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 		    if (event.type == sf::Event::Closed) {
@@ -87,7 +92,7 @@ int main(){
 		    }
 		    if (event.type == sf::Event::KeyPressed) {
 		        if (event.key.code == sf::Keyboard::Up) {
-		            TIME_STEP += 3600;
+		            TIME_STEP = std::min(TIME_STEP + 3600.0f, 3600.0f * 24 * 365);
 		        } else if (event.key.code == sf::Keyboard::Down) {
 		            TIME_STEP = std::max(3600.0f, TIME_STEP - 3600);
 		        }
@@ -99,7 +104,7 @@ int main(){
 		// Mettre à jour les informations des planètes
 		std::ostringstream output;
 		output << "Time Step: " << TIME_STEP << "\n";
-		output << "Revolution: " << "\n";
+		output << "Revolution:" << "\n";
 
 		for (size_t p = 1; p < Planets.size(); p++) {
 		    auto& planet = Planets[p];
@@ -114,18 +119,19 @@ int main(){
 
 		window.setView(simulationView);
 		window.draw(simulationBackground);
+		window.draw(sun);
 	
-		infoText.setFillColor(sf::Color::Black);
 		infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
         window.setView(infoView);
         window.draw(infoBackground);
         window.draw(infoText);
+        
 
 		window.display();
 
 	}    
 
-    
+    std::cout << " x: " << sun.getPosition().x  << " y: "<< sun.getPosition().y;
    
 
     return 0;
