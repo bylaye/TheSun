@@ -153,6 +153,30 @@ src/Objects.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheSun.dir/build.make CMakeFiles/TheSun.dir/src/Objects.cpp.s
 .PHONY : src/Objects.cpp.s
 
+src/SystemMap.o: src/SystemMap.cpp.o
+.PHONY : src/SystemMap.o
+
+# target to build an object file
+src/SystemMap.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheSun.dir/build.make CMakeFiles/TheSun.dir/src/SystemMap.cpp.o
+.PHONY : src/SystemMap.cpp.o
+
+src/SystemMap.i: src/SystemMap.cpp.i
+.PHONY : src/SystemMap.i
+
+# target to preprocess a source file
+src/SystemMap.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheSun.dir/build.make CMakeFiles/TheSun.dir/src/SystemMap.cpp.i
+.PHONY : src/SystemMap.cpp.i
+
+src/SystemMap.s: src/SystemMap.cpp.s
+.PHONY : src/SystemMap.s
+
+# target to generate assembly for a file
+src/SystemMap.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheSun.dir/build.make CMakeFiles/TheSun.dir/src/SystemMap.cpp.s
+.PHONY : src/SystemMap.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... src/Objects.o"
 	@echo "... src/Objects.i"
 	@echo "... src/Objects.s"
+	@echo "... src/SystemMap.o"
+	@echo "... src/SystemMap.i"
+	@echo "... src/SystemMap.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

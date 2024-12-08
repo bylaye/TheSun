@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/TheSun.dir/src/main.cpp.o CMakeFiles/TheSun.dir/src/Objects.cpp.o -o TheSun 
+/usr/bin/c++ CMakeFiles/TheSun.dir/src/main.cpp.o CMakeFiles/TheSun.dir/src/Objects.cpp.o CMakeFiles/TheSun.dir/src/SystemMap.cpp.o -o TheSun  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1 

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/aniang/TheSun/src/Objects.cpp" "CMakeFiles/TheSun.dir/src/Objects.cpp.o" "gcc" "CMakeFiles/TheSun.dir/src/Objects.cpp.o.d"
+  "/home/aniang/TheSun/src/SystemMap.cpp" "CMakeFiles/TheSun.dir/src/SystemMap.cpp.o" "gcc" "CMakeFiles/TheSun.dir/src/SystemMap.cpp.o.d"
   "/home/aniang/TheSun/src/main.cpp" "CMakeFiles/TheSun.dir/src/main.cpp.o" "gcc" "CMakeFiles/TheSun.dir/src/main.cpp.o.d"
   )
 
