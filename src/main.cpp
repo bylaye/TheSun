@@ -26,7 +26,6 @@ int main(){
     const PLANET& Sun = PlanetVector[0];
     float TIME_STEP = 3600*24;
  
-    //for (const star::Planet& p : star::Planets)
     for (const PLANET& p : PlanetVector)
     {
         Objects planet(p.name, p.mass, p.radius, p.distanceSun, p.color);
