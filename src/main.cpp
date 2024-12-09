@@ -1,39 +1,10 @@
 #include <Objects.hpp>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-// #include <SystemMap.hpp>
 #include <vector>
 #include <cmath>
 #include <sstream>
 #include <unistd.h>
-
-namespace star 
-{    
-    const double G = 6.674e-11;
-
-    struct Planet
-    {
-        std::string name;
-        double mass; // kg
-        double radius; // m
-        double distanceSun; // m
-        sf::Color color;
-    };
-
-    const std::vector<Planet> Planets {
-        {"Sun",     1.989e30, 6.9634e8, 0.0, sf::Color::Yellow},
-        {"Mercury", 3.3011e23, 2.4397e6, 5.791e10, sf::Color::Green}, // Planet 1
-        {"Venus",   4.8675e24, 6.0518e6, 1.082e11, sf::Color::Yellow}, // Planet 2
-        {"Earth",   5.9724e24, 6.3710e6, 1.496e11, sf::Color(100, 150, 0, 90)}, // Planet 3: Our Planet
-        {"Mars",    6.4171e23, 3.3895e6, 2.279e11, sf::Color(100, 150, 0, 90)}, // Planet 4
-        {"Jupiter", 1.8982e27, 6.9911e7, 7.785e11, sf::Color(100, 150, 0, 90)}, // Planet 5
-        {"Saturn",  5.6834e26, 5.8232e7, 1.433e12, sf::Color(100, 150, 0, 90)}, // Planet 6
-        {"Uranus",  8.6810e25, 2.5362e7, 2.877e12, sf::Color(100, 150, 0, 90)}, // Planet 7
-        {"Neptune", 1.0241e26, 2.4622e7, 4.503e12, sf::Color(100, 150, 0, 90)}, // Planet 8
-    };
-
-}
-
 
 int main(){
     const float mapWidth = 1200.0f;
@@ -52,13 +23,14 @@ int main(){
     infoBackground.setPosition(mapWidth * 0.7f, 0);
 
     std::vector<Objects> Planets;
-    const star::Planet& Sun = star::Planets[0];
+    const PLANET& Sun = PlanetVector[0];
     float TIME_STEP = 3600*24;
  
-    for (const star::Planet& p : star::Planets)
+    //for (const star::Planet& p : star::Planets)
+    for (const PLANET& p : PlanetVector)
     {
         Objects planet(p.name, p.mass, p.radius, p.distanceSun, p.color);
-        planet.setVelocity(star::G, Sun.mass, planet.getDistanceSun());
+        planet.setVelocity(G, Sun.mass, planet.getDistanceSun());
         planet.setAcceleration(p.distanceSun);
         planet.setPositionX(planet.getDistanceSun());
         planet.setPositionY(0);

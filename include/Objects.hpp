@@ -5,6 +5,20 @@
 #include <cmath>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+const double G = 6.674e-11;
+
+typedef struct
+{
+    std::string name;
+    double mass; // kg
+    double radius; // m
+    double distanceSun; // m
+    sf::Color color;
+} PLANET;
+
+extern const std::vector<PLANET> PlanetVector;
 
 class Objects
 {
