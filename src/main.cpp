@@ -1,7 +1,7 @@
 #include <Objects.hpp>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SystemMap.hpp>
+// #include <SystemMap.hpp>
 #include <vector>
 #include <cmath>
 #include <sstream>
@@ -17,18 +17,19 @@ namespace star
         double mass; // kg
         double radius; // m
         double distanceSun; // m
+        sf::Color color;
     };
 
     const std::vector<Planet> Planets {
-        {"Sun",     1.989e30, 6.9634e8, 0.0},
-        {"Mercury", 3.3011e23, 2.4397e6, 5.791e10}, // Planet 1
-        {"Venus",   4.8675e24, 6.0518e6, 1.082e11}, // Planet 2
-        {"Earth",   5.9724e24, 6.3710e6, 1.496e11}, // Planet 3: Our Planet
-        {"Mars",    6.4171e23, 3.3895e6, 2.279e11}, // Planet 4
-        {"Jupiter", 1.8982e27, 6.9911e7, 7.785e11}, // Planet 5
-        {"Saturn",  5.6834e26, 5.8232e7, 1.433e12}, // Planet 6
-        {"Uranus",  8.6810e25, 2.5362e7, 2.877e12}, // Planet 7
-        {"Neptune", 1.0241e26, 2.4622e7, 4.503e12}, // Planet 8
+        {"Sun",     1.989e30, 6.9634e8, 0.0, sf::Color::Yellow},
+        {"Mercury", 3.3011e23, 2.4397e6, 5.791e10, sf::Color::Green}, // Planet 1
+        {"Venus",   4.8675e24, 6.0518e6, 1.082e11, sf::Color::Yellow}, // Planet 2
+        {"Earth",   5.9724e24, 6.3710e6, 1.496e11, sf::Color(100, 150, 0, 90)}, // Planet 3: Our Planet
+        {"Mars",    6.4171e23, 3.3895e6, 2.279e11, sf::Color(100, 150, 0, 90)}, // Planet 4
+        {"Jupiter", 1.8982e27, 6.9911e7, 7.785e11, sf::Color(100, 150, 0, 90)}, // Planet 5
+        {"Saturn",  5.6834e26, 5.8232e7, 1.433e12, sf::Color(100, 150, 0, 90)}, // Planet 6
+        {"Uranus",  8.6810e25, 2.5362e7, 2.877e12, sf::Color(100, 150, 0, 90)}, // Planet 7
+        {"Neptune", 1.0241e26, 2.4622e7, 4.503e12, sf::Color(100, 150, 0, 90)}, // Planet 8
     };
 
 }
@@ -56,7 +57,7 @@ int main(){
  
     for (const star::Planet& p : star::Planets)
     {
-        Objects planet(p.name, p.mass, p.radius, p.distanceSun);
+        Objects planet(p.name, p.mass, p.radius, p.distanceSun, p.color);
         planet.setVelocity(star::G, Sun.mass, planet.getDistanceSun());
         planet.setAcceleration(p.distanceSun);
         planet.setPositionX(planet.getDistanceSun());
@@ -76,14 +77,8 @@ int main(){
     infoText.setFillColor(sf::Color::Blue);
     infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
-	sf::CircleShape sun;
-	sun.setRadius(50);
-	sun.setScale(1.0f, 1.0f);
-	sun.setOrigin(50, 50);
-	sun.setPosition(50, mapHeight/2);
-	//sun.setPosition(200, mapHeight/2);
-	sun.setFillColor(sf::Color::Red);
-	
+    Objects sun = Planets[0];    
+
     sf::Event event;
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
@@ -119,7 +114,7 @@ int main(){
 
 		window.setView(simulationView);
 		window.draw(simulationBackground);
-		window.draw(sun);
+        sun.draw(window);
 	
 		infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
         window.setView(infoView);
@@ -131,7 +126,7 @@ int main(){
 
 	}    
 
-    std::cout << " x: " << sun.getPosition().x  << " y: "<< sun.getPosition().y;
+    std::cout << " x: " << sun.getShape().getPosition().x  << " y: "<< sun.getShape().getPosition().y;
    
 
     return 0;

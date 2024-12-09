@@ -1,8 +1,16 @@
 #include <Objects.hpp>
 
-Objects::Objects(std::string name, double mass, double radius, double distanceSun)
-    :name(name), mass(mass), radius(radius), distanceSun(distanceSun)
+Objects::Objects(std::string name, double mass, double radius, double distanceSun, sf::Color shapeColor)
+    :name(name), mass(mass), radius(radius), distanceSun(distanceSun), shapeColor(shapeColor)
 {
+    //shape.setRadius(radius);
+    //shape.setOrigin(radius, radius);
+    //shape.setPosition(positionX, positionY);
+    shape.setFillColor(shapeColor);
+    shape.setScale(1, 1.2);
+    shape.setRadius(70);
+    shape.setOrigin(70, 100);
+    shape.setPosition(300, 300);
     revolution = 0;
     angleOrbit = 0;
 };

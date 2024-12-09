@@ -4,6 +4,7 @@
 #include <string>
 #include <cmath>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 class Objects
 {
@@ -19,9 +20,11 @@ class Objects
         double angleOrbit;
         double timeStep;
         float revolution;
+        sf::CircleShape shape;
+        sf::Color shapeColor;
 
     public:
-        Objects(std::string name, double mass, double radius, double distanceSun);
+        Objects(std::string name, double mass, double radius, double distanceSun, sf::Color shapeColor);
 
         void setDistanceSun(double d) { distanceSun = d; };
         void setPositionX(double x) { positionX = x; };
@@ -44,11 +47,13 @@ class Objects
         double getAngleOrbit()   const { return angleOrbit; };
         double getTimeStep()     const { return timeStep; };
         float  getRevolution()   const { return revolution; };
+        sf::CircleShape  getShape()   const { return shape; };
         
         double F() {return acceleration * mass; } ;
         void initRevolution() { revolution = 0; };
 
         void updatePlanetOrbit();
+        void draw(sf::RenderWindow& window){ window.draw(shape); };
 };
 
 #endif
