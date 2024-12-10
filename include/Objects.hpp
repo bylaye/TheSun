@@ -38,6 +38,7 @@ class Objects
         float revolution;
         sf::CircleShape shape;
         sf::Color shapeColor;
+        sf::Vector2f shapeCenter;
 
     public:
         Objects(std::string name, double mass, double radius, double distanceSun, sf::Color shapeColor);
@@ -56,6 +57,7 @@ class Objects
         void setShapeRadius(float r) { shape.setRadius(r); };
         void setShapePosition(float x, float y) { shape.setPosition(x, y); };
         void setShapeOrigin(float x, float y) { shape.setOrigin(x, y); };
+        void setShapeCenter(sf::Vector2f center) { shapeCenter = center; };
 
         std::string getName()         const { return name; };
         double getMass()              const { return mass; };

@@ -25,6 +25,7 @@ int main(){
     std::vector<Objects> Planets;
     const PLANET& Sun = PlanetVector[0];
     float TIME_STEP = 3600*24;
+    const sf::Vector2f& CENTER = sf::Vector2f(300, 400);    
  
     for (const PLANET& p : PlanetVector)
     {
@@ -48,7 +49,8 @@ int main(){
     infoText.setFillColor(sf::Color::Blue);
     infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
-    Objects sun = Planets[0];   
+    Objects sun = Planets[0];
+    sun.setShapeCenter(CENTER);
 
     sf::Event event;
 	while (window.isOpen()) {
