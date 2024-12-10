@@ -44,12 +44,11 @@ int main(){
 
     sf::Text infoText;
     infoText.setFont(font);
-    infoText.setCharacterSize(18);
+    infoText.setCharacterSize(16);
     infoText.setFillColor(sf::Color::Blue);
     infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
     Objects sun = Planets[0];   
-    Objects& mercury = Planets[3];
 
     sf::Event event;
 	while (window.isOpen()) {
@@ -65,39 +64,36 @@ int main(){
 		        }
 		    }
 		}
-		
-		
 
 		// Mettre à jour les informations des planètes
 		std::ostringstream output;
 		output << "Time Step: " << TIME_STEP << "\n";
 		output << "Revolution:" << "\n";
-        int i = 100;
+
+        float i = sun.getShape().getPosition().x * 1.4;
 		for (size_t p = 1; p < Planets.size(); p++) {
 		    auto& planet = Planets[p];
 		    planet.setTimeStep(TIME_STEP);
 		    planet.updatePlanetOrbit();
-		    output << planet.getName() << " : " << planet.getRevolution() << "\n";
-
 
             planet.setRadiusScale(13926800.0);
             sf::CircleShape sunShape = sun.getShape();
             planet.setShapeRadius(planet.getRadius() / planet.getRadiusScale() * 5);
-            planet.setShapePosition(sunShape.getPosition().x+i, sunShape.getPosition().y);
             planet.setShapeOrigin(planet.getShape().getRadius(), planet.getShape().getRadius() );
-            i += 55;
+            i += 15;
+            
+            planet.setDistanceSunScale(2992000000.0);
+            //planet.setDistanceSunScale(1930333333);
+            planet.setShapePosition(planet.getDistanceSun()*0.5/planet.getDistanceSunScale()+i, sunShape.getPosition().y);
+            
+            output << planet.getName() << "\n";
+            output << "r " << planet.getShape().getRadius() << " ";
+		    output << "pos x: "<<planet.getShape().getPosition().x <<" : " << planet.getRevolution()  <<"\n";
 		}
 		infoText.setString(output.str());
 		usleep(50000);
-        /*
-        mercury.setRadiusScale(13926800.0);
-        sf::CircleShape sunShape = sun.getShape();
-        mercury.setShapeRadius(mercury.getRadius() / mercury.getRadiusScale() * 5);
-        mercury.setShapePosition(sunShape.getPosition().x+100, sunShape.getPosition().y);
-        mercury.setShapeOrigin(mercury.getShape().getRadius(), mercury.getShape().getRadius() );
-        //mercury.setShapeOrigin(sun.getShape().getPosition().x, sun.getShape().getPosition().y );
-        */
-		window.clear();
+		
+        window.clear();
 
 		window.setView(simulationView);
 		window.draw(simulationBackground);
@@ -107,24 +103,16 @@ int main(){
             p.draw(window);
             p.getName();
         }
-        //mercury.draw(window);
 	
 		infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
         window.setView(infoView);
-        window.draw(infoBackground);
+        //window.draw(infoBackground);
         window.draw(infoText);
-        
 
 		window.display();
 
 	}    
 
-    std::cout << " x: " << sun.getShape().getPosition().x  << " y: "<< sun.getShape().getPosition().y<<"\n";
-    std::cout << "mercury x: " << mercury.getShape().getPosition().x  << " y: "<< mercury.getShape().getPosition().y<<"\n";
-    std::cout << "mercury r: " << mercury.getShape().getRadius()  << " y: "<< mercury.getShape().getPosition().y<<"\n";
-   
-
     return 0;
-
 }
 
