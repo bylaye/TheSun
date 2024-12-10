@@ -12,10 +12,14 @@ const double G = 6.674e-11;
 typedef struct
 {
     std::string name;
-    double mass; // kg
-    double radius; // m
-    double distanceSun; // m
+    // Real value
+    double mass; // mass in kg
+    double radius; // meter
+    double distanceSun; // meter
+    // Simulation parameter
     sf::Color color;
+    float shapeRadius;
+    float shapeDistanceSun;
 } PLANET;
 
 extern const std::vector<PLANET> PlanetVector;
@@ -39,6 +43,7 @@ class Objects
         sf::CircleShape shape;
         sf::Color shapeColor;
         sf::Vector2f shapeCenter;
+        float shapeDistanceSun;
 
     public:
         Objects(std::string name, double mass, double radius, double distanceSun, sf::Color shapeColor);
@@ -54,10 +59,12 @@ class Objects
         void setTimeStep(double st) { timeStep = st; };
         void setVelocity(double G, double M, double d);
         void setAcceleration(double d);
-        void setShapeRadius(float r) { shape.setRadius(r); };
-        void setShapePosition(float x, float y) { shape.setPosition(x, y); };
-        void setShapeOrigin(float x, float y) { shape.setOrigin(x, y); };
         void setShapeCenter(sf::Vector2f center) { shapeCenter = center; };
+        void setShapeRadius(float r) { shape.setRadius(r); };
+        void setShapePosition(sf::Vector2f pos ) { shape.setPosition(shapeCenter + pos); };
+        void setShapeOrigin(float x, float y) { shape.setOrigin(x, y); };
+        void setShapeDistanceSun(float d) { shapeDistanceSun = d; };
+        //void setOrbitPosition(float d) { shapeDistanceSun = d; };
 
         std::string getName()         const { return name; };
         double getMass()              const { return mass; };

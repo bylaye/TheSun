@@ -25,7 +25,7 @@ int main(){
     std::vector<Objects> Planets;
     const PLANET& Sun = PlanetVector[0];
     float TIME_STEP = 3600*24;
-    const sf::Vector2f& CENTER = sf::Vector2f(300, 400);    
+    sf::Vector2f CENTER = sf::Vector2f(400, 400);    
  
     for (const PLANET& p : PlanetVector)
     {
@@ -34,6 +34,11 @@ int main(){
         planet.setAcceleration(p.distanceSun);
         planet.setPositionX(planet.getDistanceSun());
         planet.setPositionY(0);
+        planet.setShapeCenter(CENTER);
+        planet.setShapeRadius(p.shapeRadius);
+        planet.setShapeOrigin(p.shapeRadius, p.shapeRadius);
+        planet.setShapeDistanceSun(p.shapeDistanceSun);
+        planet.setShapePosition(sf::Vector2f (p.shapeDistanceSun,0));
         planet.setTimeStep(TIME_STEP);
         Planets.push_back(planet);
     }
@@ -50,7 +55,6 @@ int main(){
     infoText.setPosition(mapWidth * 0.7f + 10, 10);
 
     Objects sun = Planets[0];
-    sun.setShapeCenter(CENTER);
 
     sf::Event event;
 	while (window.isOpen()) {
@@ -77,16 +81,8 @@ int main(){
 		    auto& planet = Planets[p];
 		    planet.setTimeStep(TIME_STEP);
 		    planet.updatePlanetOrbit();
-
-            planet.setRadiusScale(13926800.0);
+ 
             sf::CircleShape sunShape = sun.getShape();
-            planet.setShapeRadius(planet.getRadius() / planet.getRadiusScale() * 5);
-            planet.setShapeOrigin(planet.getShape().getRadius(), planet.getShape().getRadius() );
-            i += 15;
-            
-            planet.setDistanceSunScale(2992000000.0);
-            //planet.setDistanceSunScale(1930333333);
-            planet.setShapePosition(planet.getDistanceSun()*0.5/planet.getDistanceSunScale()+i, sunShape.getPosition().y);
             
             output << planet.getName() << "\n";
             output << "r " << planet.getShape().getRadius() << " ";
@@ -113,7 +109,11 @@ int main(){
 
 		window.display();
 
-	}    
+	} 
+    for (const Objects& p : Planets){
+        sf::CircleShape s = p.getShape();
+        std::cout << p.getName() << ": x= "<< s.getPosition().x <<"\n" ;
+    }
 
     return 0;
 }
