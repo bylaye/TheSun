@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 int main(){
-    const float mapWidth = 1200.0f;
+    const float mapWidth = 1250.0f;
     const float mapHeight = 800.0f;
     const float scale = 10.0f;
     
@@ -25,7 +25,7 @@ int main(){
     std::vector<Objects> Planets;
     const PLANET& Sun = PlanetVector[0];
     float TIME_STEP = 3600*24;
-    sf::Vector2f CENTER = sf::Vector2f(400, 400);    
+    sf::Vector2f CENTER = sf::Vector2f(0, 0);    
  
     for (const PLANET& p : PlanetVector)
     {
