@@ -58,6 +58,7 @@ int main(){
 
     sf::Event event;
     bool pauseSimulation = false;
+    Objects* selectedPlanet = nullptr;
     
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
@@ -74,8 +75,25 @@ int main(){
 		    
 		    if (event.type == sf::Event::MouseButtonPressed){
 		    	if (event.mouseButton.button == sf::Mouse::Left){
-		    		 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-		    		std::cout << "Mouse Left pressed " << mousePos.x <<"\n";
+		    		sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
+					sf::Vector2f mousePos = window.mapPixelToCoords(pixelPos, simulationView);
+		    		std::cout << "Mouse Left pressed x=" << mousePos.x <<" - y="<< mousePos.y <<"\n";
+		    		for (auto& planet : Planets) {
+                        sf::Vector2f planetPos = planet.getShape().getPosition();
+                        float radius = planet.getShape().getRadius();
+
+                        // distance beetween clic mouse and planet center
+                        float dx = mousePos.x - planetPos.x;
+                        float dy = mousePos.y - planetPos.y;
+                        float distance = std::sqrt(dx * dx + dy * dy);
+                        //std::cout << planet.getName() << " r=" << radius <<" x="<< planetPos.x <<" - y="<< planetPos.y<<"\n";
+
+                        if (distance <= radius) {
+                            selectedPlanet = &planet;
+                            std::cout << "Planet sélected : " << planet.getName() << std::endl;
+                            break;
+                        }
+                    }
 		    	}
 		    }
 		    
