@@ -57,6 +57,8 @@ int main(){
     Objects sun = Planets[0];
 
     sf::Event event;
+    bool pauseSimulation = false;
+    
 	while (window.isOpen()) {
 		while (window.pollEvent(event)) {
 		    if (event.type == sf::Event::Closed) {
@@ -76,45 +78,56 @@ int main(){
 		    		std::cout << "Mouse Left pressed " << mousePos.x <<"\n";
 		    	}
 		    }
+		    
+		    if (event.type == sf::Event::KeyPressed){
+		    	if (event.key.code == (sf::Keyboard::P)){
+		    		std::cout << "Pressed p " << pauseSimulation<<"\n";
+		    		pauseSimulation = !pauseSimulation;
+		    		
+		    	}
+		    }
 		}
+		if (!pauseSimulation){
+			// Mettre à jour les informations des planètes
+			std::ostringstream output;
+			output << "Time Step: " << TIME_STEP << "\n";
+			output << "Revolution: " << pauseSimulation <<"\n";
 
-		// Mettre à jour les informations des planètes
-		std::ostringstream output;
-		output << "Time Step: " << TIME_STEP << "\n";
-		output << "Revolution:" << "\n";
+		    float i = sun.getShape().getPosition().x * 1.4;
+			for (size_t p = 1; p < Planets.size(); p++) {
+				auto& planet = Planets[p];
+				planet.setTimeStep(TIME_STEP);
+				planet.updatePlanetOrbit();
+	 
+		        sf::CircleShape sunShape = sun.getShape();
+		        
+		        output << planet.getName() << "\n";
+		        output << "r " << planet.getShape().getRadius() << " ";
+				output << "pos x: "<<planet.getShape().getPosition().x <<" : " << planet.getRevolution()  <<"\n";
+			}
+			infoText.setString(output.str());
+			usleep(50000);
+			
+		    window.clear();
 
-        float i = sun.getShape().getPosition().x * 1.4;
-		for (size_t p = 1; p < Planets.size(); p++) {
-		    auto& planet = Planets[p];
-		    planet.setTimeStep(TIME_STEP);
-		    planet.updatePlanetOrbit();
- 
-            sf::CircleShape sunShape = sun.getShape();
-            
-            output << planet.getName() << "\n";
-            output << "r " << planet.getShape().getRadius() << " ";
-		    output << "pos x: "<<planet.getShape().getPosition().x <<" : " << planet.getRevolution()  <<"\n";
-		}
-		infoText.setString(output.str());
-		usleep(50000);
+			window.setView(simulationView);
+			window.draw(simulationBackground);
+		    //sun.draw(window);
+		    
+			for (Objects p : Planets) {
+		        p.draw(window);
+		        p.getName();
+		    }
 		
-        window.clear();
+			infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
+		    window.setView(infoView);
+		    //window.draw(infoBackground);
+		    window.draw(infoText);
 
-		window.setView(simulationView);
-		window.draw(simulationBackground);
-        //sun.draw(window);
-        
-		for (Objects p : Planets) {
-            p.draw(window);
-            p.getName();
-        }
-	
-		infoView.setViewport(sf::FloatRect(0.7f, 0.f, 0.3f, 1.f));
-        window.setView(infoView);
-        //window.draw(infoBackground);
-        window.draw(infoText);
-
-		window.display();
+			window.display();
+			
+		} // end if pause
+		
 
 	} 
     for (const Objects& p : Planets){
