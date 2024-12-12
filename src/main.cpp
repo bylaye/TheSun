@@ -69,6 +69,13 @@ int main(){
 		            TIME_STEP = std::max(3600.0f, TIME_STEP - 3600);
 		        }
 		    }
+		    
+		    if (event.type == sf::Event::MouseButtonPressed){
+		    	if (event.mouseButton.button == sf::Mouse::Left){
+		    		 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		    		std::cout << "Mouse Left pressed " << mousePos.x <<"\n";
+		    	}
+		    }
 		}
 
 		// Mettre à jour les informations des planètes
